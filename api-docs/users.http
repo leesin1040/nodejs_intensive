@@ -3,9 +3,9 @@ POST http://localhost:4000/api/user/sign_up HTTP/1.1
 Content-Type: application/json; charset=utf-8
 
 {
-  "email":"test7@mail.com",
+  "email":"테스트@mail.com",
   "password":"1234",
-  "name":"test",
+  "name":"테스트",
   "confirmPassword":"1234"
 }
 ###
@@ -14,7 +14,7 @@ POST http://localhost:4000/api/user/log_in HTTP/1.1
 Content-Type: application/json; charset=utf-8
 
 {
-  "email":"test7@mail.com",
+  "email":"테스트@mail.com",
   "password":"1234"
 }
 ####
@@ -23,7 +23,7 @@ PATCH  http://localhost:4000/api/user/userInfo HTTP/1.1
 Content-Type: application/json; charset=utf-8
 
 {
-"password":"12345",
+"password":"1234",
 "newPassword":"test",
 "confirmPassword":"test"
 }
@@ -39,7 +39,7 @@ DELETE  http://localhost:4000/api/user/deleteUser HTTP/1.1
 Content-Type: application/json; charset=utf-8
 
 {
-  "password":"test"
+  "password":"1234"
 }
 ####
 //--계정 조회
