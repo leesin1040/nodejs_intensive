@@ -25,8 +25,8 @@ export class ProductsRepository {
     return updatedProduct;
   };
   // API REP 상품 조회
-  findProduct = async (productId) => {
-    const foundProduct = await prisma.products.findUnique({
+  getProduct = async (productId) => {
+    const gotProduct = await prisma.products.findUnique({
       where: { productId: productId },
       select: {
         productId: true,
@@ -38,11 +38,11 @@ export class ProductsRepository {
         updatedAt: true,
       },
     });
-    if (!foundProduct) {
+    if (!gotProduct) {
       const err = new Error('상품이 존재하지 않습니다.');
       err.statusCode = 400;
       throw err;
     }
-    return foundProduct;
+    return gotProduct;
   };
 }

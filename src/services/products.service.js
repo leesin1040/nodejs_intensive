@@ -41,4 +41,9 @@ export class ProductsService {
     );
     return { data: updatedProduct };
   };
+  // API 상품 상세 조회
+  getProduct = async (productId) => {
+    const gotProduct = await this.productsRepository.getProduct(productId);
+    return gotProduct;
+  };
 }

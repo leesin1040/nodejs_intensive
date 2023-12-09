@@ -60,4 +60,17 @@ export class ProductsController {
       next(err);
     }
   };
+  // API 상품 상세조회
+  getProduct = async (req, res, next) => {
+    try {
+      const { productId } = req.params;
+      const gotProduct = await this.productsService.getProduct(+productId);
+      return res.status(200).json({ data: gotProduct });
+    } catch (err) {
+      if (err.statusCode === 400) {
+        return res.status(400).json({ errorMessage: err.message });
+      }
+      next(err);
+    }
+  };
 }

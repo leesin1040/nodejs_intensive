@@ -11,6 +11,8 @@ router.get('/', productsController.getProducts);
 router.post('/', authMiddleware, productsController.createProduct);
 //  API router 상품 수정
 router.patch('/:productId', authMiddleware, productsController.updateProduct);
+//  API router 상품 상세조회
+router.get('/:productId', productsController.getProduct);
 //  API router 상품 삭제
 router.delete('/:productId', authMiddleware, productsController.updateProduct);
 export default router;
