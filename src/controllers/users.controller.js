@@ -42,11 +42,13 @@ export class UsersController {
         err.statusCode = 400;
         throw err;
       }
-      // 로그인 된 유저 서비스로 보내기 - Service에서 userId받아오기
       const loggedInUser = await this.usersService.loginUser(email, password);
       req.session.userId = loggedInUser.userId;
       return res.status(200).json({ success: true, message: '로그인 되었습니다.' });
     } catch (err) {
+      if (err.statusCode === 409) {
+        return res.status(409).json({ errorMessage: err.message });
+      }
       if (err.statusCode === 400) {
         return res.status(400).json({ errorMessage: err.message });
       }
@@ -81,5 +83,32 @@ export class UsersController {
       res.clearCookie('sessionId');
       return res.status(200).json({ success: true, message: '로그아웃 되었습니다.' });
     });
+  };
+  // API CON 유저 계정 삭제
+  deleteUser = async (req, res, next) => {
+    try {
+      const { userId } = req.user;
+      const { password } = req.body;
+      const deletedUser = await this.usersService.deleteUser(userId, password);
+      return res.status(200).json(deletedUser);
+    } catch (err) {
+      if (err.statusCode === 400) {
+        return res.status(400).json({ errorMessage: err.message });
+      }
+      next(err);
+    }
+  };
+  // API CON 유저 계정 조회
+  getUser = async (req, res, next) => {
+    try {
+      const { userId } = req.user;
+      const gotUser = await this.usersService.getUser(userId);
+      return res.status(200).json(gotUser);
+    } catch (err) {
+      if (err.statusCode === 400) {
+        return res.status(400).json({ errorMessage: err.message });
+      }
+      next(err);
+    }
   };
 }

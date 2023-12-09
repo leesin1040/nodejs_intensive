@@ -26,7 +26,13 @@ export class ProductsService {
     return { data: createdProduct };
   };
   // API SER 상품 수정
-  updateProduct = async (productId, title, content, status) => {
+  updateProduct = async (userId, productId, title, content, status) => {
+    const foundProduct = await this.productsRepository.findProduct(productId);
+    if (foundProduct.UserId !== userId) {
+      const err = new Error('수정 권한이 없습니다.');
+      err.statusCode = 400;
+      throw err;
+    }
     const updatedProduct = await this.productsRepository.updateProduct(
       productId,
       title,

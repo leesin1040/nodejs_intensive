@@ -5,12 +5,12 @@ import { ProductsController } from '../controllers/products.controller.js';
 const router = express.Router();
 const productsController = new ProductsController();
 
-// --상품 조회
+//  API router 상품 조회
 router.get('/', productsController.getProducts);
-
-// --상품 생성
+//  API router 상품 생성
 router.post('/', authMiddleware, productsController.createProduct);
-// --상품 수정
+//  API router 상품 수정
 router.patch('/:productId', authMiddleware, productsController.updateProduct);
-
+//  API router 상품 삭제
+router.delete('/:productId', authMiddleware, productsController.updateProduct);
 export default router;

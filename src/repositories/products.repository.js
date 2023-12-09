@@ -24,4 +24,25 @@ export class ProductsRepository {
     });
     return updatedProduct;
   };
+  // API REP 상품 조회
+  findProduct = async (productId) => {
+    const foundProduct = await prisma.products.findUnique({
+      where: { productId: productId },
+      select: {
+        productId: true,
+        UserId: true,
+        title: true,
+        content: true,
+        status: true,
+        createdAt: true,
+        updatedAt: true,
+      },
+    });
+    if (!foundProduct) {
+      const err = new Error('상품이 존재하지 않습니다.');
+      err.statusCode = 400;
+      throw err;
+    }
+    return foundProduct;
+  };
 }

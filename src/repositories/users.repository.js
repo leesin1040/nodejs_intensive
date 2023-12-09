@@ -7,6 +7,13 @@ export class UsersRepository {
   findById = async (userId) => {
     return prisma.users.findUnique({ where: { userId } });
   };
+  // API REP 유저 계정 조회
+  findByIdInfo = async (userId) => {
+    return prisma.users.findUnique({
+      where: { userId },
+      select: { userId: true, email: true, name: true, createdAt: true, updatedAt: true },
+    });
+  };
   // API REP 유저 회원가입
   createUser = async (email, name, password) => {
     const createdUser = await prisma.users.create({
@@ -24,5 +31,12 @@ export class UsersRepository {
       where: { userId: userId },
       data: { password: newPassword },
     });
+  };
+  // API REP 유저 계정 삭제
+  deleteUser = async (userId) => {
+    const deletedUser = await prisma.users.delete({
+      where: { userId: userId },
+    });
+    return deletedUser;
   };
 }

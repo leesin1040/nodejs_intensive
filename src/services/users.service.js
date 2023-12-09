@@ -70,5 +70,21 @@ export class UsersService {
     const updatedPassword = await this.usersRepository.updatePassword(userId, hashedPassword);
     return { message: '비밀번호가 변경되었습니다.' };
   };
-  // API SER 유저 탈퇴?
+  // API SER 유저 계정 삭제
+  deleteUser = async (userId, password) => {
+    const existId = await this.usersRepository.findById(userId);
+    const comparePassword = await bcrypt.compare(password, existId.password);
+    if (!comparePassword) {
+      const err = new Error('비밀번호가 일치하지 않습니다.');
+      err.statusCode = 400;
+      throw err;
+    }
+    const deletedUser = await this.usersRepository.deleteUser(userId);
+    return { message: '계정이 삭제되었습니다.' };
+  };
+  // API SER 유저 계정 조회
+  getUser = async (userId) => {
+    const existId = await this.usersRepository.findByIdInfo(userId);
+    return { data: existId };
+  };
 }

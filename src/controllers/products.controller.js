@@ -37,6 +37,7 @@ export class ProductsController {
   // API CON 상품 수정
   updateProduct = async (req, res, next) => {
     try {
+      const { userId } = req.user;
       const { productId } = req.params;
       const { title, content, status } = req.body;
       if (!title || !content || !status) {
@@ -45,6 +46,7 @@ export class ProductsController {
         throw err;
       }
       const updatedProduct = await this.productsService.updateProduct(
+        userId,
         +productId,
         title,
         content,
