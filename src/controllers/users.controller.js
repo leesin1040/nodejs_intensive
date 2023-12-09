@@ -6,6 +6,12 @@ export class UsersController {
   createUser = async (req, res, next) => {
     try {
       const { email, name, password, confirmPassword } = req.body;
+      // 데이터 유무 확인
+      if (!email || !name || !password || !confirmPassword) {
+        const err = new Error('필수정보가 누락되었습니다.');
+        err.statusCode = 400;
+        throw err;
+      }
       const createdUser = await this.usersService.createUser(
         email,
         name,
