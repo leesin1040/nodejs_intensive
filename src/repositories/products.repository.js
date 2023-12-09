@@ -3,7 +3,6 @@ export class ProductsRepository {
   // API REP 상품 목록 조회
   findAllProducts = async () => {
     const products = await prisma.products.findMany();
-
     return products;
   };
   // API REP 상품 생성
