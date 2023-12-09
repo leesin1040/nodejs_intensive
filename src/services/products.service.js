@@ -22,7 +22,7 @@ export class ProductsService {
   };
   // API SER 상품 생성
   createProduct = async (title, content) => {
-    const createdProduct = await this.ProductsRepository.createProduct(title, content);
+    const createdProduct = await this.productsRepository.createProduct(title, content);
     return {
       title: createdProduct.title,
       content: createdProduct.content,

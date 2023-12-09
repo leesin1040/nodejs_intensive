@@ -2,7 +2,7 @@ import { prisma } from '../utils/prisma/index.js';
 export class ProductsRepository {
   // API REP 상품 목록 조회
   findAllProducts = async () => {
-    const products = await prisma.findMany();
+    const products = await prisma.products.findMany();
 
     return products;
   };
@@ -16,6 +16,4 @@ export class ProductsRepository {
     });
     return createdProduct;
   };
-
-  createProduct = async (title, content) => {};
 }

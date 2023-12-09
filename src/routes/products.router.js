@@ -1,13 +1,13 @@
 import express from 'express';
-import { ProductsController } from '../controllers/products.controller';
+import { ProductsController } from '../controllers/products.controller.js';
 
 const router = express.Router();
 const productsController = new ProductsController();
 
 // --상품 조회
-router.get('/products', productsController.getProducts);
+router.get('/', productsController.getProducts);
 
 // --상품 생성
-router.post('/products', productsController.createProduct);
+router.post('/', productsController.createProduct);
 
 export default router;
