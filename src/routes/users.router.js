@@ -13,7 +13,7 @@ router.post('/log_in', usersController.loginUser);
 router.patch('/userInfo', authMiddleware, usersController.updatePassword);
 // API router 사용자 로그아웃
 router.delete('/logout', authMiddleware, usersController.logoutUser);
-// API router 사용자 계정삭제
+// API router 사용자 계정 삭제
 router.delete('/deleteUser', authMiddleware, usersController.deleteUser);
 // API router 사용자 계정 조회
 router.get('/userInfo', authMiddleware, usersController.getUser);
