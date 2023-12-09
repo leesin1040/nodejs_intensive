@@ -6,9 +6,10 @@ export class ProductsRepository {
     return products;
   };
   // API REP 상품 생성
-  createProduct = async (title, content) => {
+  createProduct = async (userId, title, content) => {
     const createdProduct = await prisma.products.create({
       data: {
+        UserId: userId,
         title,
         content,
       },

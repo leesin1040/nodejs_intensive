@@ -1,4 +1,5 @@
 import express from 'express';
+import authMiddleware from '../middlewares/need-signin.middleware.js';
 import { ProductsController } from '../controllers/products.controller.js';
 
 const router = express.Router();
@@ -8,6 +9,6 @@ const productsController = new ProductsController();
 router.get('/', productsController.getProducts);
 
 // --상품 생성
-router.post('/', productsController.createProduct);
+router.post('/', authMiddleware, productsController.createProduct);
 
 export default router;

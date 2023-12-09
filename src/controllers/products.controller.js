@@ -15,6 +15,7 @@ export class ProductsController {
   // API CON 상품 생성
   createProduct = async (req, res, next) => {
     try {
+      const { userId } = req.user;
       const { title, content } = req.body;
       // 데이터 유무 확인
       if (!title || !content) {
@@ -23,7 +24,7 @@ export class ProductsController {
         throw err;
       }
       // 상품 생성
-      const createdProduct = await this.productsService.createProduct(title, content);
+      const createdProduct = await this.productsService.createProduct(userId, title, content);
       return res.status(201).json({ data: createdProduct });
     } catch (err) {
       // 400번 에러처리
