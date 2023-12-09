@@ -1,6 +1,5 @@
 import express from 'express';
 import router from './routes/index.js';
-import LogMiddleware from './middlewares/log.middleware.js';
 import ErrorHandlerMiddleware from './middlewares/error-handler.middleware.js';
 import cookieParser from 'cookie-parser';
 import expressSession from 'express-session';
@@ -21,7 +20,6 @@ const sessionStore = new MySQLStorage({
   createDatabaseTable: true,
 });
 
-app.use(LogMiddleware);
 app.use(cookieParser());
 app.use(express.json());
 app.use(
