@@ -16,4 +16,12 @@ export class ProductsRepository {
     });
     return createdProduct;
   };
+  // API REP 상품 수정
+  updateProduct = async (productId, title, content, status) => {
+    const updatedProduct = await prisma.products.update({
+      where: { productId: productId },
+      data: { title: title, content: content, status: status },
+    });
+    return updatedProduct;
+  };
 }

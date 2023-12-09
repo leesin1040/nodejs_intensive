@@ -25,4 +25,14 @@ export class ProductsService {
     const createdProduct = await this.productsRepository.createProduct(userId, title, content);
     return { data: createdProduct };
   };
+  // API SER 상품 수정
+  updateProduct = async (productId, title, content, status) => {
+    const updatedProduct = await this.productsRepository.updateProduct(
+      productId,
+      title,
+      content,
+      status,
+    );
+    return { data: updatedProduct };
+  };
 }

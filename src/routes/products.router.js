@@ -10,5 +10,7 @@ router.get('/', productsController.getProducts);
 
 // --상품 생성
 router.post('/', authMiddleware, productsController.createProduct);
+// --상품 수정
+router.patch('/:productId', authMiddleware, productsController.updateProduct);
 
 export default router;
