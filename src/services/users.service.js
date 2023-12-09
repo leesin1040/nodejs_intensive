@@ -1,4 +1,3 @@
-import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import { UsersRepository } from '../repositories/users.repository.js';
 import dotenv from 'dotenv';
@@ -33,8 +32,6 @@ export class UsersService {
   };
 
   // API SER 로그인
-  // 서비스에서 비번 체크 - 해쉬해서 레포지토리에 보내기
-  // 서비스에서 아이디 체크 후 jwt토큰 발급
   loginUser = async (email, password) => {
     const existEmail = await this.usersRepository.findByEmail(email);
     if (!existEmail) {
@@ -54,4 +51,24 @@ export class UsersService {
       userId,
     };
   };
+
+  // API SER 유저 비밀번호 수정
+  updatePassword = async (userId, password, newPassword, confirmPassword) => {
+    const existId = await this.usersRepository.findById(userId);
+    const comparePassword = await bcrypt.compare(password, existId.password);
+    if (!comparePassword) {
+      const err = new Error('비밀번호가 일치하지 않습니다.');
+      err.statusCode = 400;
+      throw err;
+    }
+    if (newPassword !== confirmPassword) {
+      const err = new Error('새 비밀번호가 일치하지 않습니다.');
+      err.statusCode = 400;
+      throw err;
+    }
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+    const updatedPassword = await this.usersRepository.updatePassword(userId, hashedPassword);
+    return { message: '비밀번호가 변경되었습니다.' };
+  };
+  // API SER 유저 탈퇴?
 }

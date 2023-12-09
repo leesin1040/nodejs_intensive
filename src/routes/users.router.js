@@ -1,4 +1,5 @@
 import express from 'express';
+import authMiddleware from '../middlewares/need-signin.middleware.js';
 import { UsersController } from '../controllers/users.controller.js';
 
 const router = express.Router();
@@ -8,5 +9,8 @@ const usersController = new UsersController();
 router.post('/sign_up', usersController.createUser);
 // API router 사용자 로그인
 router.post('/log_in', usersController.loginUser);
-
+// API router 사용자 비밀번호 수정
+router.patch('/userInfo', authMiddleware, usersController.updatePassword);
+// API router 사용자 로그아웃
+router.delete('/logout', authMiddleware, usersController.logoutUser);
 export default router;

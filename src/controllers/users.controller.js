@@ -32,7 +32,7 @@ export class UsersController {
       next(err);
     }
   };
-  // API CON 유저 로그인 -jwt
+  // API CON 유저 로그인
   loginUser = async (req, res, next) => {
     try {
       const { email, password } = req.body;
@@ -54,10 +54,32 @@ export class UsersController {
     }
   };
   // API CON 유저 비밀번호 수정
-  getUserInfo = async (req, res, next) => {
+  updatePassword = async (req, res, next) => {
     try {
+      const { userId } = req.user;
+      const { password, newPassword, confirmPassword } = req.body;
+      const updatedPassword = await this.usersService.updatePassword(
+        userId,
+        password,
+        newPassword,
+        confirmPassword,
+      );
+      return res.status(200).json({ data: updatedPassword });
     } catch (err) {
+      if (err.statusCode === 400) {
+        return res.status(400).json({ errorMessage: err.message });
+      }
       next(err);
     }
+  };
+  // API CON 유저 로그아웃
+  logoutUser = (req, res) => {
+    req.session.destroy((err) => {
+      if (err) {
+        return res.status(500).json({ errorMessage: '로그아웃에 실패했습니다.' });
+      }
+      res.clearCookie('sessionId');
+      return res.status(200).json({ success: true, message: '로그아웃 되었습니다.' });
+    });
   };
 }
