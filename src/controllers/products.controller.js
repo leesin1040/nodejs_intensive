@@ -73,4 +73,18 @@ export class ProductsController {
       next(err);
     }
   };
+  // API 상품 삭제
+  deleteProduct = async (req, res, next) => {
+    try {
+      const { userId } = req.user;
+      const { productId } = req.params;
+      const deletedProduct = await this.productsService.deleteProduct(+userId, +productId);
+      return res.status(200).json(deletedProduct);
+    } catch (err) {
+      if (err.statusCode === 400) {
+        return res.status(400).json({ errorMessage: err.message });
+      }
+      next(err);
+    }
+  };
 }

@@ -46,4 +46,15 @@ export class ProductsService {
     const gotProduct = await this.productsRepository.getProduct(productId);
     return gotProduct;
   };
+  // API SER 상품 삭제
+  deleteProduct = async (userId, productId) => {
+    const existProduct = await this.productsRepository.findByProductId(productId);
+    if (existProduct.UserId !== userId) {
+      const err = new Error('삭제 권한이 없습니다.');
+      err.statusCode = 400;
+      throw err;
+    }
+    const deletedProduct = await this.productsRepository.deleteProduct(productId);
+    return { message: '상품이 삭제되었습니다.' };
+  };
 }

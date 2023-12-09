@@ -1,5 +1,8 @@
 import { prisma } from '../utils/prisma/index.js';
 export class ProductsRepository {
+  findByProductId = async (productId) => {
+    return prisma.products.findUnique({ where: { productId } });
+  };
   // API REP 상품 목록 조회
   findAllProducts = async () => {
     const products = await prisma.products.findMany();
@@ -44,5 +47,12 @@ export class ProductsRepository {
       throw err;
     }
     return gotProduct;
+  };
+  // API REP 상품 삭제
+  deleteProduct = async (productId) => {
+    const deletedProduct = await prisma.products.delete({
+      where: { productId: productId },
+    });
+    return deletedProduct;
   };
 }
