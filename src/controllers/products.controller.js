@@ -2,7 +2,7 @@ import { ProductsService } from '../services/products.service';
 
 export class ProductsController {
   productsService = new ProductsService();
-  // --게시글 조회
+  // API CON 상품 목록 조회
   getProducts = async (req, res, next) => {
     try {
       const products = await this.productsService.findAllProducts();
@@ -12,7 +12,7 @@ export class ProductsController {
       next(err);
     }
   };
-  // --게시글 생성
+  // API CON 상품 생성
   createProduct = async (req, res, next) => {
     try {
       const { title, content } = req.body;
