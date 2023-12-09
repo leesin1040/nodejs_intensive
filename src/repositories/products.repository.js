@@ -41,11 +41,6 @@ export class ProductsRepository {
         updatedAt: true,
       },
     });
-    if (!gotProduct) {
-      const err = new Error('상품이 존재하지 않습니다.');
-      err.statusCode = 400;
-      throw err;
-    }
     return gotProduct;
   };
   // API REP 상품 삭제
