@@ -5,7 +5,18 @@ export class ProductsRepository {
   };
   // API REP 상품 목록 조회
   findAllProducts = async () => {
-    const products = await prisma.products.findMany();
+    const products = await prisma.products.findMany({
+      orderBy: {
+        createdAt: 'desc',
+      },
+      select: {
+        productId: true,
+        UserId: true,
+        title: true,
+        createdAt: true,
+        updatedAt: true,
+      },
+    });
     return products;
   };
   // API REP 상품 생성
