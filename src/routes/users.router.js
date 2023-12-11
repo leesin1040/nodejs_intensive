@@ -6,15 +6,16 @@ const router = express.Router();
 const usersController = new UsersController();
 
 // API router 사용자 회원가입
-router.post('/sign_up', usersController.createUser);
+router.post('/sign-up', usersController.createUser);
 // API router 사용자 로그인
-router.post('/log_in', usersController.loginUser);
+router.post('/log-in', usersController.loginUser);
 // API router 사용자 비밀번호 수정
-router.patch('/userInfo', authMiddleware, usersController.updatePassword);
+router.patch('/user-info', authMiddleware, usersController.updatePassword);
 // API router 사용자 로그아웃
-router.delete('/logout', authMiddleware, usersController.logoutUser);
+router.post('/log-out', authMiddleware, usersController.logoutUser);
 // API router 사용자 계정 삭제
-router.delete('/deleteUser', authMiddleware, usersController.deleteUser);
+router.delete('/user-info', authMiddleware, usersController.deleteUser);
 // API router 사용자 계정 조회
-router.get('/userInfo', authMiddleware, usersController.getUser);
+router.get('/user-info', authMiddleware, usersController.getUser);
+
 export default router;
